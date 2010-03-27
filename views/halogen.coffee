@@ -4,6 +4,12 @@ resize_photos: ->
     'height': $(window).height()
   }
 
+window.get_dimensions: (sizes) ->
+  {
+    'width': sizes.image_w,
+    'height': sizes.image_h
+  }
+
 $(window).resize resize_photos
 
 # domready

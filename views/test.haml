@@ -1,0 +1,21 @@
+%script{ :src => "/scripts/jquery.fn.js" }
+%script{ :src => "/scripts/jquery.print.js" }
+%script{ :src => "/scripts/screw.builder.js" }
+%script{ :src => "/scripts/screw.matchers.js" }
+%script{ :src => "/scripts/screw.events.js" }
+%script{ :src => "/scripts/screw.behaviors.js" }
+%link{ :href => "/styles/screw.css", :rel => "stylesheet" }
+
+:coffee
+  Screw.Unit ->
+    describe "resizing algorithm", ->
+      it "shouldn't change size if picture is smaller than frame", ->
+        expect(get_dimensions({
+          'browser_w': 600,
+          'browser_h': 400,
+          'image_w': 500,
+          'image_h': 300
+        })).to equal, {
+          'width': 500,
+          'height': 300
+        }
