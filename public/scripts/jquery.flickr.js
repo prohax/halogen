@@ -16,14 +16,21 @@
       var list = $('<ul>');
       $(this).html(list);
       $.getJSON($.flickr.format($.extend(s, o)), function(r) {
+        console.log(r);
         if (r.stat != "ok") {
           for (i in r) {
             $('<li>').text(i + ': ' + r[i]).appendTo(list);
           }
         } else {
           $(r.photoset.photo).each(function(i, elem) {
-            list.append($.flickr.build_photo_markup(elem));
+            list.append(
+              $.flickr.build_photo_markup(elem).data({
+                width: elem.width_o,
+                height: elem.height_o
+              })
+            );
           });
+          if (o.callback) o.callback();
         }
       });
     });
@@ -32,9 +39,9 @@
   $.flickr = {
     build_photo_markup: function(photo) {
       return $('<li />').append(
-        $('<a />').attr('href', photo['url_o']).attr('title', photo['title']).append(
-          $('<img />').attr('src', photo['url_o']).attr('alt', photo['title'])
-        )
+        $('<h2 />').html(photo.title)
+      ).append(
+        $('<img />').attr('src', photo['url_o']).attr('alt', photo['title'])
       )
     },
     format: function(s) {
