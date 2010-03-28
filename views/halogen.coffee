@@ -5,10 +5,10 @@ resize_photos: ->
   }
 
 window.get_dimensions: (sizes) ->
-  {
-    'width': sizes.image_w,
-    'height': sizes.image_h
-  }
+  if sizes.image.width < sizes.window.width and sizes.image.height < sizes.window.height 
+    sizes.image
+  else 
+    sizes.window
 
 $(window).resize resize_photos
 

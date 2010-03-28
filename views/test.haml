@@ -11,11 +11,18 @@
     describe "resizing algorithm", ->
       it "shouldn't change size if picture is smaller than frame", ->
         expect(get_dimensions({
-          'browser_w': 600,
-          'browser_h': 400,
-          'image_w': 500,
-          'image_h': 300
+          'window': {'width': 600, 'height': 400},
+          'image': {'width': 500, 'height': 300}
         })).to equal, {
           'width': 500,
           'height': 300
         }
+      
+      it "should be resized down to exactly browser size if same ratio", ->
+        expect(get_dimensions({
+          'window': {'width': 600, 'height': 400},
+          'image': {'width': 1200, 'height': 800}
+        })).to equal, {
+          'width': 600,
+          'height': 400
+        }      
